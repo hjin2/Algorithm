@@ -30,7 +30,7 @@ public class SWEA_메모리 {
 			}else {								                  	// 첫번째 나오는 수가 0이면 더해줄 필요가 없다. 따로 변경할 일이 없으니까
 				result = 0;
 			}
-			char comp = numlist[0];			          		// 첫번째수와 뒤의 자리 숫자들을 비교한다.
+			char comp = numlist[0];			           		// 첫번째수와 뒤의 자리 숫자들을 비교한다.
 				
 			for(int i = 1 ; i <numlist.length ;i++) {	// comp변수와 배열 1번째부터 끝까지 비교한다.
 				if(numlist[i] != comp) {			        	// 만약에comp변수와 배열에 있는 숫자가 다르면
