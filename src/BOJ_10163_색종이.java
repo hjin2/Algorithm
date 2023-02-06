@@ -50,3 +50,60 @@ public class BOJ_10163 {
 		}
 	}
 }
+
+/*
+교수님 솔루션
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main_10163_색종이 {
+
+	public static void main(String[] args) throws IOException {
+		//1. 입력 받기
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = null;
+		
+		st=new StringTokenizer(br.readLine());
+		int N = Integer.parseInt(st.nextToken());
+		
+		int[][] arr  = new int[1001][1001]; //평면 최대 크기 1001*1001
+		
+		//2. N개 색종이 정보를 평면에 표시하기.
+		for(int i =1; i<=N; i++) {
+			st = new StringTokenizer(br.readLine());
+			
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			int width = Integer.parseInt(st.nextToken());
+			int height = Integer.parseInt(st.nextToken());
+			
+			for(int w =a;w<a+width;w++) {
+				for(int h=b; h<b+height; h++) {
+					arr[w][h] = i;					
+				}
+			}
+		}
+		
+		//3. 배열 전체 돌면서 면적 파악하기
+		int[] count = new int[N+1];//인덱스 0제외 1부터 활용하기 위해 +1
+		for(int i =0; i<1001;i++) {
+			for(int j=0; j<1001; j++) {
+				if(arr[i][j]>0) {
+					count[arr[i][j]]++;
+				}
+			}
+		}
+		
+		//4.출력 
+		for(int i=1; i<N+1; i++) {
+			System.out.println(count[i]);
+		}
+		
+
+	}
+
+}
+*/
