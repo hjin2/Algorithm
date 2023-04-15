@@ -8,14 +8,14 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class solv1 {
-	static int resultMax = Integer.MIN_VALUE;	// 결과가 최대인 값
-	static int resultMin = Integer.MAX_VALUE;	// 결과가 최소인 값
+	static int resultMax = Integer.MIN_VALUE;				// 결과가 최대인 값
+	static int resultMin = Integer.MAX_VALUE;				// 결과가 최소인 값
 	static int n;								// n개의 수
 	static int[] nums; 							// n개의 수를 담을 배열
-	static String[] selected;					// 선택된 수
+	static String[] selected;						// 선택된 수
 	static String[] operator = { "+", "-", "x", "/" };
-	static boolean[] visited;					// 방문유무
-	static List<String> list;					// 부호목록들
+	static boolean[] visited;						// 방문유무
+	static List<String> list;						// 부호목록들
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -34,8 +34,8 @@ public class solv1 {
 		}
 		
 		list = new ArrayList<>();
-		for (int i = 0; i < 4; i++) {				// 각각 부호를 담을건데
-			for (int j = 0; j < tmps[i]; j++) {		// 부호개수만큼
+		for (int i = 0; i < 4; i++) {					// 각각 부호를 담을건데
+			for (int j = 0; j < tmps[i]; j++) {			// 부호개수만큼
 				list.add(operator[i]);				// 리스트에 넣기
 			}
 		}
@@ -55,8 +55,8 @@ public class solv1 {
 	}
 
 	private static void p(int cnt) {
-		if (cnt == n-1) { 			// 부호 n-1개를 모두 다 선택한 상태
-			calc();					// 뽑힌 부호 순서대로 계산을 진행
+		if (cnt == n-1) { 					// 부호 n-1개를 모두 다 선택한 상태
+			calc();						// 뽑힌 부호 순서대로 계산을 진행
 			return;
 		}
 		for (int i = 0; i < n-1; i++) {
