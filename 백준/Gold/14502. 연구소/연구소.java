@@ -3,25 +3,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-class blank {
-	int x;
-	int y;
-
-	public blank(int x, int y) {
-		super();
-		this.x = x;
-		this.y = y;
-	}
-}
 
 public class Main {
 	static int n, m;
 	static int result = Integer.MIN_VALUE;
-	static List<blank> list;
 	static int[] selected;
 	static boolean[][] visited;
 	static int[][] arr;
