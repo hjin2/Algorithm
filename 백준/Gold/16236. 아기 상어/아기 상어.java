@@ -20,13 +20,13 @@ class Node implements Comparable<Node> {
 
 	@Override
 	public int compareTo(Node o) {
-		if(dist==o.dist) {
-			if (x == o.x)
+		if(dist==o.dist) {			// 거리가 같을때
+			if (x == o.x)			// 같은 행에 있으면 더 왼쪽에 있는 애들
 				return y - o.y;
 			else
-				return x - o.x;	
+				return x - o.x;		// 아니면 위쪽에 있는 애들	
 		}
-		return dist - o.dist;
+		return dist - o.dist;		// 거리가 다르면 가까운 곳 먼저
 	}
 
 }
@@ -63,7 +63,7 @@ public class Main {
 	}
 
 	private static void bfs(int startX, int startY) {
-		PriorityQueue<Node> queue = new PriorityQueue<>();
+		PriorityQueue<Node> queue = new PriorityQueue<>(); // 우선순위 큐
 		boolean[][] visited = new boolean[n][n];
 		queue.add(new Node(startX, startY, 0));
 		visited[startX][startY] = true;
@@ -80,14 +80,14 @@ public class Main {
 			int nowD = node.dist;
 			//System.out.println("nowX: " +nowX + "  nowY: " + nowY + "  nowD: " + nowD);
 
-			if (arr[nowX][nowY] < sharkSize && arr[nowX][nowY] > 0) {
+			if (arr[nowX][nowY] < sharkSize && arr[nowX][nowY] > 0) {	// 0보다크고 상어 사이즈보다 작으면 먹힌다
 				arr[nowX][nowY] = 0;
 				eat += 1;
 				
 				//System.out.println("eat : " + eat);
 				//System.out.println("nowD : " + nowD);
 				
-				time+= (nowD-time);
+				time = nowD;	// 먹히고 거기서부터 1씩 더해가므로 nowD가 걸린시간임
 				//System.out.println("time : " + time);
 				
 				if (eat == sharkSize) {
@@ -97,8 +97,7 @@ public class Main {
 
 				}
 				
-				queue.clear();
-				queue.add(new Node(nowX, nowY, 0));
+				queue.clear();	// 먹힌곳부터 다시 시작하기위해서 큐를 초기화
 				visited = new boolean[n][n];
 				visited[nowX][nowY] = true;
 			}
