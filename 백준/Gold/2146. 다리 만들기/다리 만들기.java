@@ -61,15 +61,7 @@ public class Main {
 				}
 			}
 		}
-		// 각 가장자리에서 가장 짧은 구역 찾기
-        // System.out.println("왜");
-        // for(int i = 0 ; i < n; i++){
-        //     for(int j = 0 ; j < n; j++){
-        //         // check(i,j);
-        //         System.out.print(edge[i][j] + "\t");
-        //     }
-        //     System.out.println();
-        // }
+
 		System.out.println(result);
 
 	}
@@ -94,12 +86,10 @@ public class Main {
 			for (int i = 0; i < 4; i++) {
 				int nx = nowX + dx[i];
 				int ny = nowY + dy[i];
-				// System.out.println("nowX " + nowX + "  nowY : " + nowY);
 
 				if (nx < 0 || nx >= n || ny < 0 || ny >= n)
 					continue;
 				if (arr[nx][ny] == 0) {
-					// System.out.println("나에게 0이 있어요 arr[nx][ny]==0 " + nx + "  " + ny);
                     possible = true;
 					edge[nowX][nowY]=islandNum; // 바로 edge에 가장자리 표시해주기
                     continue; // possible하고 바로 continue해버리면 밑에꺼 실행 안됨
@@ -119,8 +109,6 @@ public class Main {
 	}
 
 	public static void bfs2(int x, int y,int islandNum, int depth){
-		// System.out.println("==========================================================BFS2=============");
-		// System.out.println("===============x : " + x + " y : " + y + " islandNum : " + islandNum + " depth : " + depth + "===========");
 		Queue<int[]> queue2 = new LinkedList<>();
 		queue2.add(new int[]{x,y,islandNum,depth});
 		visited2[x][y] = true;
@@ -136,35 +124,25 @@ public class Main {
 				int nx = nowX + dx[i];
 				int ny = nowY + dy[i];
 				int nd = nowD + 1;
-				// System.out.println("다음x: " + nx +  "   다음y: " + ny + "  다음d : " + nd);
+		
 
 				if(nx<0 || nx>= n || ny<0 || ny>=n){
-					// System.out.println("배열 밖이라서 넘어가요");
 					continue;
 				}
 				if(edge[nx][ny]==nowL){
-					// System.out.println("같은 섬 가장자리라서 넘어가요");
 					continue;
 				}
 				if(visited2[nx][ny]){
-					// System.out.println("방문한 곳이라서 넘어가요");
 					continue;
 				}
-				// if(arr[nx][ny]==nowL){
-				// 	System.out.println("가려는곳이 내 섬 내부라서 넘어갔어용");
-				// 	continue;
-				// }
+
 				if (edge[nx][ny] == 0){
-					// System.out.println("빈칸이다! 방문처리하고 큐에 넣었어요");
 					visited2[nx][ny] = true;
 					distance[nx][ny]=nd;
 					queue2.add(new int[]{nx,ny,nowL,nd});
 				}
 				if(edge[nx][ny]!=0 && edge[nx][ny]!=nowL){
-					// System.out.println("이때의 x : " + nowX + "이때의 y : " + nowY + "depth : " + nowD);
 					result = result > nowD ? nowD: result;
-					// System.out.println("다음x: 0   다음y: 7  다음d : 5 => 이 때 멈추어야한다...");
-					// System.out.println("다른 섬을 만났을 때의 depth는???? : " + nd);
 					queue2.clear();
 					visited2= new boolean[n][n];
 					break;
