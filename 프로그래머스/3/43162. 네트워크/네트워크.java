@@ -1,39 +1,56 @@
 class Solution {
     public static int[] parent;
+    public static boolean[] visitedNum;
     public int solution(int n, int[][] computers) {
-        int answer = computers.length;
+        int answer = 0;
         parent = new int[n];
         for(int i = 0 ; i < n; i++){
             parent[i] = i;
         }
+
         
-        for(int i = 0 ; i < computers.length ;i++){
-            for(int j = 0 ; j < computers[i].length ; j++){
-                if(computers[i][j] == 1){
-                    if(find(i) != find(j)){
-                        union(i,j);
-                        answer--;
-                    }
-                }
+        visitedNum = new boolean[n];
+
+        for(int i = 0 ; i < n ; i++){
+            for(int j = i+1 ; j < n ; j++){
+                union(i,j,computers,n);
             }
         }
-        return answer;
-    }
-    
-    public static int find(int x){
-        if(parent[x] == x){
-            return x;
+        for(int i = 0 ; i < n; i++){
+            System.out.print(parent[i] + " " );
         }
-        return parent[x] = find(parent[x]);
+        
+        
+        for(int i = 0 ; i < n; i++){ 
+            visitedNum[parent[i]] = true;
+        }
+        int cnt = 0;
+        for(int i = 0 ; i < n ; i++){
+            if(visitedNum[i]){
+                cnt++;
+            }
+        }
+        return cnt;
     }
     
-    public static void union(int a, int b){
-        a = find(a);
-        b = find(b);
-        
-        if(a < b)
-            parent[b] = a;
-        else
-            parent[a] = b;
+    public static void union(int a, int b, int[][] computers, int n){
+        boolean flag = false;
+        for(int i = 0 ; i < n ; i++){
+            if(computers[a][i] == 1 && computers[b][i] == 1){
+                parent[b] = find(parent[i]);
+                flag = true;
+            }
+        }
+        if(!flag){
+            parent[b] = b;
+        }
     }
+    
+    public static int find(int n){
+        if(parent[n] == n){
+            return n;
+        }
+        return parent[n] = find(parent[n]);
+    }
+    
 }
