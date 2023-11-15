@@ -42,7 +42,7 @@ public class Main {
 		int rootA = find(n);
 		int rootB = rootA - 1;
 
-		if (rootA == 0) {
+		if (rootB == -1) {
 			return false;
 		}
 
@@ -51,4 +51,3 @@ public class Main {
 		return true;
 	}
 }
-
