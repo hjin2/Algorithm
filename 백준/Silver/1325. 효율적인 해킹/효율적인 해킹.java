@@ -1,82 +1,88 @@
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+// 효율적인 해킹
+// dfs
 
 public class Main {
-    public static List<Integer>[] list;
-    public static boolean[] visited;
-    public static int[] result;
-
+    
+    static StringBuilder sb;
+    static int N, M;
+    static List<List<Integer>> adj;
+    static boolean[] visited;
+    static int[] count;
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        int n = Integer.parseInt(st.nextToken());   // 컴퓨터는 1부터 N까지
-        int m = Integer.parseInt(st.nextToken());   // 신뢰관계 갯수
-
-        list = new ArrayList[n + 1];
-        for (int i = 1; i < n + 1; i++) {
-            list[i] = new ArrayList<Integer>();
-        }
-
-        for (int i = 0; i < m; i++) {
-            st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            list[a].add(b);
-        }
-
-
-        // list돌면서 리스트인덱스번호를 해킹했을때 해킹할 수 있는 애들 갯수 세기
-        result = new int[n + 1];
-        for(int i = 1 ; i <= n; i++){
-            visited = new boolean[n+1];
-            bfs(i);
-        }
-
-        int max = Arrays.stream(result).max().getAsInt();
-        ArrayList<Integer> answer = new ArrayList<>();
-        for(int i = 1 ; i <= n ; i++){
-            if(result[i] == max){
-                answer.add(i);
-            }
-        }
-
-        Collections.sort(answer);
-        for(int i : answer){
-            System.out.print(i + " ");
-        }
-        System.out.println();
-
-
-//        int max = 0;
-//        for(int i = 0 ; i < n+1; i++){
-//            max = Math.max(max,result[i]);
-//        }
-//        for(int i = 0 ; i < n+1 ;i++){
-//            if(max==result[i])
-//                System.out.print((i-1) + " ");
-//        }
+        solve();
     }
-    public static void bfs(int idx){
-        Queue<Integer> queue = new LinkedList<>();
+    
+    private static void print(Queue<Integer> result) {
+        while (!result.isEmpty()) {
+            sb.append(result.poll()).append(" ");
+        }
 
-        queue.add(idx);
-        visited[idx] = true;
+        System.out.println(sb.toString());
+    }
 
+    private static void solve() throws IOException {
+        init();
+        Queue<Integer> result = new PriorityQueue<>();
 
-        while(!queue.isEmpty()){
-            int pick = queue.poll();
-
-            for(int num : list[pick]){
-                if(visited[num]) continue;
-                visited[num] = true;
-                queue.add(num);
-                result[num]++;
+        for (int i = 1; i <= N; i++) {
+            Arrays.fill(visited, false);
+            dfs(i);
+        }
+        int max = Integer.MIN_VALUE;
+        for (int i = 1; i <= N; i++){
+            if (max < count[i]) {
+                max = count[i];
+                result.clear();
+                result.offer(i);
+            } else if (max == count[i]) {
+                result.offer(i);
             }
         }
 
+        print(result);
+    }
+
+    private static void dfs(int cur) {
+        visited[cur] = true;
+        for (int next: adj.get(cur)) {
+            if (visited[next]) continue;
+            count[next]++;
+            dfs(next);
+        }
+    }
+
+    private static void init() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        sb = new StringBuilder();
+        st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+
+        adj = new ArrayList<>();
+        visited = new boolean[N + 1];
+        count = new int[N + 1];
+        for (int i = 0; i <= N; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int from = Integer.parseInt(st.nextToken());
+            int to = Integer.parseInt(st.nextToken());
+            adj.get(from).add(to);
+        }
 
 
     }
