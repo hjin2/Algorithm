@@ -1,11 +1,3 @@
-/******************************************************************************
-
-Welcome to GDB Online.
-GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
-C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
-Code, Compile, Run and Debug online from anywhere in world.
-
-*******************************************************************************/
 import java.util.*;
 public class Main
 {
@@ -15,15 +7,15 @@ public class Main
 		String result ="";
 		
 		for(int i = 0 ; i < str.length() ; i++){
-		    String tmp = "";
-		    if((int)str.charAt(i)>=97 && (int)str.charAt(i)<=122){
-    		    tmp = String.valueOf(str.charAt(i));
-    		    tmp = tmp.toUpperCase();
+		    int change;
+		    if(str.charAt(i) >= 'a' && str.charAt(i) <= 'z'){
+		        int tmp = str.charAt(i) - 'a'; // 현재 알파벳이 a!!!로 부터 얼마나 떨어져 있는지 확인
+		        change = 'A' + tmp; // 대문자 A에서 떨어진 만큼을 더한다 !
     		}else{
-    		    tmp = String.valueOf(str.charAt(i));
-    		    tmp = tmp.toLowerCase();
+    		    int tmp = str.charAt(i) - 'A';
+    		    change = 'a' + tmp;
     		}
-    		result += tmp;
+    		result += (char)change;
 		}
 		System.out.println(result);
 	}
