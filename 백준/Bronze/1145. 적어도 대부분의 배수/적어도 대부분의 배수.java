@@ -15,7 +15,7 @@ public class Main {
         for(int i = 1 ; i <= 1000000 ; i++){
             int cnt = 0;
             for(int k = 0 ; k < 5 ; k++){
-                if( i / arr[k] > 0 && i % arr[k] == 0){
+                if(i % arr[k] == 0){
                     cnt++;
                 }
             }
