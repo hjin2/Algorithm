@@ -43,16 +43,13 @@ public class Main {
                     min = Math.abs(arr[s] + arr[e]);
                 }
                 s++;
-            }else if(Math.abs(arr[s]) <= Math.abs(arr[e])){
+            }else if(Math.abs(arr[s]) < Math.abs(arr[e])){
                 if(Math.abs(arr[s] + arr[e]) <= min ){
                     results = s;
                     resulte = e;
                     min = Math.abs(arr[s] + arr[e]);
                 }
                 e--;
-            }else{
-                System.out.println(arr[results] + " " + arr[resulte]);
-                break;
             }
         }
 
