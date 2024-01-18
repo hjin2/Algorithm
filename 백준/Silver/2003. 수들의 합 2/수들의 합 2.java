@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+        import java.io.IOException;
+        import java.io.InputStreamReader;
+        import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -11,31 +11,37 @@ public class Main {
         int target = Integer.parseInt(st.nextToken());
         int result = 0;
         int[] nums = new int[n];
-        st = new StringTokenizer(br.readLine());
 
-        for (int i = 0; i < n; i++) {
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < n ; i++){
             nums[i] = Integer.parseInt(st.nextToken());
         }
 
-        int s = 0, e = 0, total = 0;
-
-        while (e < n) {
-            total += nums[e];
-
-            while (total > target) {
-                total -= nums[s];
+        int s = 0;
+        int e = 0;
+        int sum = nums[s];
+        while(s < n) {
+            if( sum < target ) {
+                e++;
+                if( e < n ) {
+                    sum += nums[e];
+                }else{
+                    break;
+                }
+            }else if (sum > target){
+                sum = sum - nums[s];
                 s++;
-            }
-
-            if (total == target) {
-                result++;
-                total -= nums[s];
+            }else{
+                result += 1;
+                sum = sum - nums[s];
                 s++;
+                e++;
+                if( e < n)
+                    sum += nums[e];
+                else
+                    break;
             }
-
-            e++;
         }
-
         System.out.println(result);
     }
 }
