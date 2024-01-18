@@ -1,34 +1,45 @@
-import java.util.*;
-public class Main
-{
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int sum = 0;
-		int[] arr = new int[9];
-		for(int i = 0 ; i < 9; i++){
-		    int n = sc.nextInt();
-		    arr[i] = n;
-		    sum += n;
-		}
-		
-		int remain = sum - 100;
-		int removeX = -1;
-		int removeY = -1;
-		for(int i = 0 ; i < 7 ; i++){
-		 for(int j = i+1; j < 9 ; j++){
-		     if(arr[i] + arr[j] == remain){
-		         removeX = arr[i];
-		         removeY= arr[j];
-		         break;
-		     }
-		 }   
-		}
-		Arrays.sort(arr);
-		for(int i = 0  ; i < 9 ; i++){
-		    if(arr[i] == removeX || arr[i] == removeY ){
-		        continue;
-		    }
-		    System.out.println(arr[i]);
-		}
-	}
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int[] arr = new int[9];
+        int total = 0;
+        for(int i = 0 ; i < 9 ; i++){
+            arr[i] = Integer.parseInt(br.readLine());
+            total += arr[i];
+        }
+
+        Arrays.sort(arr);
+        int target = total - 100;
+        List<Integer> no = new ArrayList<>();
+
+        int s = 0;
+        int e = 8;
+        while( s < e ){
+            int sum = arr[s] + arr[e];
+            if(sum < target){
+                s++;
+            }else if ( sum > target ){
+                e--;
+            }else{
+                no.add(s);
+                no.add(e);
+                break;
+            }
+        }
+
+        for(int i = 0 ; i < 9 ; i++){
+            if(!no.contains(i)){
+                System.out.println(arr[i]);
+            }
+        }
+
+    }
 }
