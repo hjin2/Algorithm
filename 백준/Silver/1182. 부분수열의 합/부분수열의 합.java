@@ -1,48 +1,41 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
-	public static int n;
-	public static int m;
-	public static int cnt;
-	public static int[] nums;
-	public static int[] c;
-	
-	public static void comb(int start, int count) {
-		if(count == c.length) {
-			int sum = 0;
-			for(int i = 0 ; i < c.length; i++) {
-				sum += c[i];
-			}
-			if(sum==m)
-				cnt++;
-			return;
-		}
-		for(int i = start; i < n ; i++) {
-			c[count] = nums[i];
-			comb(i+1, count+1);
-		}
-	}
-	
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		n = Integer.parseInt(st.nextToken());
-		m = Integer.parseInt(st.nextToken());
-		st = new StringTokenizer(br.readLine());
-		nums = new int[n];
-		for(int i = 0 ; i<n; i++) {
-			nums[i] = Integer.parseInt(st.nextToken());
-		}
-		
-		for(int i = 1 ; i < n+1; i++) {
-			// nC0 , nC1, nC2
-			c = new int[i];
-			comb(0,0);
-		}
-		
-		System.out.println(cnt);
-	}
+    static int N,S;
+    static StringBuilder sb;
+    static int[] nums;
+    static int result;
+    static int[] selected;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        N = sc.nextInt(); // n개의 정수로 이루어진 수열
+        S = sc.nextInt(); // 합이 s가 되어야함
+
+        nums = new int[N];
+        for (int i = 0; i < N; i++) {
+            nums[i] = sc.nextInt();
+        }
+        recur(0,0);
+        if(S == 0){
+            System.out.println(result - 1); // 모두 선택하지 않은 경우
+        }else {
+            System.out.println(result);
+        }
+    }
+    public static void recur(int depth , int total){
+        if(depth == N){
+            if(total == S){
+                result += 1;
+            }
+            return;
+        }
+
+        // 고르는 경우
+        recur(depth + 1, total + nums[depth]);
+
+        // 안고르는 경우
+        recur(depth + 1, total);
+
+
+    }
 }
