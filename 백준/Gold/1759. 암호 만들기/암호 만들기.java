@@ -1,49 +1,57 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
     static int L, C;
-    static char[] characters;
-    static char[] selected;
     static StringBuilder sb;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    static String[] alphas;
+
+    public static void main(String[] args) throws IOException {
         sb = new StringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        L = Integer.parseInt(st.nextToken());
+        C = Integer.parseInt(st.nextToken());
 
-        L = sc.nextInt();
-        C = sc.nextInt();
-        characters = new char[C];
-        selected = new char[L];
-
-        for(int i = 0 ; i < C ; i++){
-            characters[i] = sc.next().charAt(0);
+        st = new StringTokenizer(br.readLine());
+        alphas = new String[C];
+        for (int i = 0; i < C; i++) {
+            alphas[i] = st.nextToken();
         }
 
-        Arrays.sort(characters);
+        Arrays.sort(alphas);
 
-        comb(0,0);
+        recur("", 0, 0, 0);
         System.out.println(sb);
     }
-    public static void comb(int depth, int startidx){
-        if(depth == L){ // L개를 다 뽑았을때
-            // 비밀번호의 조건에 맞는지 확인하기
-            int consonant = 0;
-            for(int i = 0 ; i < L ; i++){
-                if(selected[i] == 'a' || selected[i] == 'e' || selected[i] == 'i' || selected[i] == 'o' || selected[i] == 'u'){
-                    consonant++;
+
+    public static void recur(String str, int m, int z, int rec) {
+        if(rec == C){
+
+            if(str.length() == L){
+                if(m >= 1 && z >= 2){
+                    sb.append(str);
+                    sb.append("\n");
                 }
-            }
-            if(consonant >= 1 && (L - consonant) >= 2){
-                for(int i = 0 ; i < L ; i++){
-                    sb.append(selected[i]);
-                }
-                sb.append("\n");
             }
             return;
         }
-        for(int i = startidx ; i < C ; i++){
-            selected[depth] = characters[i];
-            comb(depth + 1, i + 1);
+
+
+        // 모음 선택
+        if (alphas[rec].equals("a") || alphas[rec].equals("e") || alphas[rec].equals("i") || alphas[rec].equals("o") || alphas[rec].equals("u")) {
+            recur(str + alphas[rec], m + 1, z, rec + 1);
         }
+        // 자음 선택
+        else {
+            recur(str + alphas[rec], m, z + 1, rec + 1);
+        }
+        // 선택안하고 다음 알파벳
+        recur(str, m, z, rec + 1);
+
+
     }
 }
