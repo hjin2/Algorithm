@@ -60,20 +60,20 @@ public class Main {
         }
 
         while(!queue.isEmpty()){
-            int pop = queue.poll(); // 큐에서 한개를 뽑는다. 큐에 있다는 건 차수가 0이라는 뜻
+            int now = queue.poll(); // 큐에서 한개를 뽑는다. 큐에 있다는 건 차수가 0이라는 뜻
 
 
-            for(int i = 0 ; i < buildings.get(pop).size() ; i++){ // 진입차수가 0인 노드와 연결된 노드들
-                int idx = buildings.get(pop).get(i);
+            for(int i = 0 ; i < buildings.get(now).size() ; i++){ // 진입차수가 0인 노드와 연결된 노드들
+                int next = buildings.get(now).get(i);
 
-//                System.out.println("현재 노드 : " + idx);
-//                System.out.printf("T[%d] : %d \tresults[%d] : %d \tresults[%d] : %d\n",idx,T[idx],pop,results[pop],idx,results[idx]);
+//                System.out.println("현재 노드 : " + next);
+//                System.out.printf("T[%d] : %d \tresults[%d] : %d \tresults[%d] : %d\n",next,T[next],now,results[now],next,results[next]);
 
-                results[idx] = Math.max(T[idx] + results[pop], results[idx]); // 연결된 노드를 만드는게 걸리는 시간
-//                System.out.println("결국 저장된 값 : " + results[idx]);
-                indegree[idx] -= 1; // 차수 제거
-                if(indegree[idx] == 0){
-                    queue.add(idx);
+                results[next] = Math.max(T[next] + results[now], results[next]); // 연결된 노드를 만드는게 걸리는 시간
+//                System.out.println("결국 저장된 값 : " + results[next]);
+                indegree[next] -= 1; // 차수 제거
+                if(indegree[next] == 0){
+                    queue.add(next);
                 }
             }
 
