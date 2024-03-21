@@ -45,7 +45,7 @@ public class Main {
                     continue;
                 }
                 if(i == 0){
-                    queue.add(new int[]{near[i], top[1]});
+                    queue.add(new int[]{near[i], top[1]}); // near[1]이 아니라 top[1]!!!!!
                 }else{
                     queue.add(new int[]{near[i], top[1] + 1});
                 }
