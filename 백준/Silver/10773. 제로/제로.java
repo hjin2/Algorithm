@@ -21,8 +21,8 @@ public class Main {
 
         int sum = 0;
         int size = stack.size();
-        for(int i = 0 ; i < size ; i++){
-            sum += stack.pop();
+        for(int o : stack) {
+            sum += o;
         }
         System.out.println(sum);
     }
