@@ -4,48 +4,50 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-/*
- *  N개의 자연수는 모두 다른 수이다.
-	N개의 자연수 중에서 M개를 고른 수열
- */
 public class Main {
-	static int[] arr;
-	static int[] selected;
-	static boolean[] visited;
-	static int n, m;
+    public static int N, M;
+    public static int[] selected;
+    public static boolean[] used;
+    public static int[] num;
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		n = Integer.parseInt(st.nextToken());
-		m = Integer.parseInt(st.nextToken());
+    public static StringBuilder sb;
 
-		arr = new int[n];
-		selected = new int[m];
-		visited = new boolean[n];
-		st = new StringTokenizer(br.readLine());
-		for (int i = 0; i < n; i++) {
-			arr[i] = Integer.parseInt(st.nextToken());
-		}
-		Arrays.sort(arr);
-		comb(0);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        sb = new StringBuilder();
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        selected = new int[M];
+        used = new boolean[N];
+        num = new int[N];
 
-	}
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N ; i++){
+            num[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(num);
 
-	static void comb(int cnt) {
-		if (cnt == m) {
-			for (int i = 0; i < m; i++) {
-				System.out.print(selected[i] + " ");
-			}
-			System.out.println();
-			return;
-		}
-		for (int cand = 0; cand < n; cand++) {
-			if(visited[cand]) continue;
-			selected[cnt] = arr[cand];
-			visited[cand] = true;
-			comb(cnt + 1);
-			visited[cand] =false;
-		}
-	}
+        p(0);
+        System.out.println(sb);
+    }
+    public static void p(int m){
+        if(m == M){
+            for(int i : selected){
+                sb.append(i).append(" ");
+            }
+            sb.append("\n");
+            return;
+        }
+
+        for(int i = 0 ; i < N ; i++){
+            if(used[i]){
+                continue;
+            }
+            selected[m] = num[i];
+            used[i] = true;
+            p(m + 1);
+            used[i] = false;
+        }
+    }
 }
