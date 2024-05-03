@@ -1,55 +1,48 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int n, m;
-	static List<Integer> arr;
-	static int[] pick;
-	static boolean[] visited;
-	static BufferedWriter bw;
+    public static int N, M;
+    public static int[] selected;
 
-	static void c(int count) throws IOException {
-		if (count == m) {
-			for (int tmp : pick) {
-//				System.out.print(tmp + " ");
-				bw.write(tmp + " ");
-			}
-//			System.out.println();
-			bw.write('\n');
-			return;
-		}
+    public static int[] num;
 
-		for (int i = 0; i < n; i++) {
-			pick[count] = arr.get(i);
-			c(count + 1);
-		}
-	}
+    public static StringBuilder sb;
 
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		n = Integer.parseInt(st.nextToken());
-		m = Integer.parseInt(st.nextToken());
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        sb = new StringBuilder();
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        selected = new int[M];
 
-		arr = new ArrayList<>();
-		pick = new int[m];
-		visited = new boolean[n];
-		st = new StringTokenizer(br.readLine());
-		for (int i = 0; i < n; i++) {
-			arr.add(Integer.parseInt(st.nextToken()));
-		}
-		Collections.sort(arr);
+        num = new int[N];
 
-		c(0);
-		bw.flush();
-		bw.close();
-	}
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N ; i++){
+            num[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(num);
+
+        c(0);
+        System.out.println(sb);
+    }
+    public static void c(int m){
+        if(m == M){
+            for(int i : selected){
+                sb.append(i).append(" ");
+            }
+            sb.append("\n");
+            return;
+        }
+
+        for(int i = 0 ; i < N ; i++){
+            selected[m] = num[i];
+            c(m + 1);
+        }
+    }
 }
