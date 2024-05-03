@@ -1,39 +1,48 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int n,m;
-    static int[] selected;
-    static int[] candi;
-    static StringBuilder sb;
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static int N, M;
+    public static int[] selected;
+
+    public static int[] num;
+
+    public static StringBuilder sb;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
         sb = new StringBuilder();
-        n = sc.nextInt();
-        m = sc.nextInt();
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        selected = new int[M];
 
-        candi = new int[n];
-        selected = new int[m];
-        for(int i = 0 ; i < n; i++){
-            candi[i] = sc.nextInt();
+        num = new int[N];
+
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0 ; i < N ; i++){
+            num[i] = Integer.parseInt(st.nextToken());
         }
+        Arrays.sort(num);
 
-        Arrays.sort(candi);
-
-        rec(0,0);
+        c(0, 0);
         System.out.println(sb);
     }
-    public static void rec(int depth, int startidx){
-        if(depth == m){
-            for(int num : selected){
-                sb.append(num).append(" ");
+    public static void c(int m, int start){
+        if(m == M){
+            for(int i : selected){
+                sb.append(i).append(" ");
             }
             sb.append("\n");
             return;
         }
-        for(int i = startidx ; i < n ; i++){
-            selected[depth] = candi[i];
-            rec(depth + 1, i);
+
+        for(int i = start ; i < N ; i++){
+            selected[m] = num[i];
+            c(m + 1, i);
         }
     }
 }
